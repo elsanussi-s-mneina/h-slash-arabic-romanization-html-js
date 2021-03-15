@@ -68,5 +68,44 @@
 		</div>
 		<button id="transliterateToArabic">Transliterate Latin to Arabic</button>
 		<button id="transliterateToLatin">Transliterate Arabic to Latin</button>
+
+		<script>
+			/// The function getTransliterateToArabicButton returns the button from body that 
+			/// is labelled to transliterate text to Arabic.
+			function getTransliterateToArabicButton()
+			{
+				return document.getElementById("transliterateToArabic");
+			}
+
+			function getTransliterateToLatinButton()
+			{
+				return document.getElementById("transliterateToLatin");
+			}
+
+			function getArabicTextElement()
+			{
+				return document.getElementById("arabicText");
+			}
+
+			function getLatinTextElement()
+			{
+				return document.getElementById("latinText");
+			}
+
+			getTransliterateToArabicButton().onclick = 
+				function ()
+				{
+					getArabicTextElement().value = "Put Arabic text here";
+				};
+
+			getTransliterateToLatinButton().onclick = 
+				function ()
+				{
+					getLatinTextElement().value = "Put Latin text here";
+				};
+
+
+		</script>
+
 	</body>
 </html>
