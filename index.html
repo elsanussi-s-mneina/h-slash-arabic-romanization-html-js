@@ -67,8 +67,11 @@
 			<textarea id="latinScriptText" name="latinScriptText" cols="50"></textarea>
 		</div>
 		<button id="transliterateToArabic">Transliterate Latin to Arabic</button>
+		<input id="transliterationToArabicLock" type="checkbox" /><label for="transliterationToArabicLock">Transliterate to Arabic as I type</label>
+		<br>
 		<button id="transliterateToLatin">Transliterate Arabic to Latin</button>
-
+		<input id="transliterationToLatinLock" type="checkbox" /><label for="transliterationToLatinLock">Transliterate to Latin as I type</label>
+		<br>
 		<script>
 			/// The function getTransliterateToArabicButton returns the button from body that 
 			/// is labelled to transliterate text to Arabic.
@@ -92,10 +95,31 @@
 				return document.getElementById("latinScriptText");
 			}
 
+			function getTransliterateToArabicLock()
+			{
+				return document.getElementById("transliterationToArabicLock");
+			}
+
+			function getTransliterateToLatinLock()
+			{
+				return document.getElementById("transliterationToLatinLock");
+			}
+
+
+
 			getTransliterateToArabicButton().onclick = 
 				function ()
 				{
 					arabize();
+				};
+
+			getLatinTextElement().onkeyup = 
+				function ()
+				{
+					if (getTransliterateToArabicLock().checked)
+					{
+						arabize();
+					}
 				};
 
 			getTransliterateToLatinButton().onclick = 
@@ -103,6 +127,16 @@
 				{
 					romanize();
 				};
+
+			getArabicTextElement().onkeyup = 
+				function ()
+				{
+					if (getTransliterateToLatinLock().checked)
+					{
+						romanize();
+					}
+				};
+
 
 
 
