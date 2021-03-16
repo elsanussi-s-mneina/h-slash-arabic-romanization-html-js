@@ -82,9 +82,9 @@
 		<div>
 			<label for="latinScriptText">Latin Text:</label>
 			<textarea id="latinScriptText" name="latinScriptText" cols="50"></textarea>
-			<button onclick="document.getElementById('latinScriptText').value += 'ħ';">ħ</button> 
-			<button onclick="document.getElementById('latinScriptText').value += 'ġ';">ġ</button> 
-			<button onclick="document.getElementById('latinScriptText').value += 'ż';">ż</button> 
+			<button onclick="document.getElementById('latinScriptText').value += 'ħ'; tryArabize();">ħ</button> 
+			<button onclick="document.getElementById('latinScriptText').value += 'ġ'; tryArabize();">ġ</button> 
+			<button onclick="document.getElementById('latinScriptText').value += 'ż'; tryArabize();">ż</button> 
 		</div>
 		<button id="transliterateToArabic">Transliterate Latin to Arabic</button>
 		<input id="transliterationToArabicLock" type="checkbox" /><label for="transliterationToArabicLock">Transliterate to Arabic as I type</label>
@@ -133,14 +133,15 @@
 					arabize();
 				};
 
-			getLatinTextElement().onkeyup = 
-				function ()
+			function tryArabize()
+			{
+				if (getTransliterateToArabicLock().checked)
 				{
-					if (getTransliterateToArabicLock().checked)
-					{
-						arabize();
-					}
-				};
+					arabize();
+				}
+			}
+
+			getLatinTextElement().onkeyup = tryArabize;
 
 			getTransliterateToLatinButton().onclick = 
 				function ()
@@ -148,14 +149,16 @@
 					romanize();
 				};
 
-			getArabicTextElement().onkeyup = 
-				function ()
+			function tryRomanize()
+			{
+				if (getTransliterateToLatinLock().checked)
 				{
-					if (getTransliterateToLatinLock().checked)
-					{
-						romanize();
-					}
-				};
+					romanize();
+				}
+			}
+
+			getArabicTextElement().onkeyup = tryRomanize();
+
 
 
 
