@@ -83,11 +83,11 @@
 		<h2>Try it</h2>
 		<div>
 			<label for="arabicScriptText">Arabic Text:</label>
-			<textarea id="arabicScriptText" name="arabicScriptText" lang="ar" dir="rtl" cols="50"></textarea>
+			<textarea id="arabicScriptText" name="arabicScriptText" lang="ar" dir="rtl" cols="50" aria-live="assertive"></textarea>
 		</div>
 		<div>
 			<label for="latinScriptText">Latin Text:</label>
-			<textarea id="latinScriptText" name="latinScriptText" cols="50"></textarea>
+			<textarea id="latinScriptText" name="latinScriptText" cols="50" aria-live="assertive"></textarea>
 			<button onclick="document.getElementById('latinScriptText').value += 'ħ'; tryArabize();">ħ</button> 
 			<button onclick="document.getElementById('latinScriptText').value += 'ġ'; tryArabize();">ġ</button> 
 			<button onclick="document.getElementById('latinScriptText').value += 'ż'; tryArabize();">ż</button> 
