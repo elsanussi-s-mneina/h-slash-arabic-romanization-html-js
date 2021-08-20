@@ -10,3 +10,9 @@
 - Add the version number: v0.7.0
 
 
+## August 20, 2021: version 0.8.1
+- Fix more transliteration issues
+ - specifically errors in transliterating "ssħ ddħ hh" and others
+ - this was accomplished using a separator character and chunking
+    as part of the transliteration process. The separator character is
+	removed at the end of the process.

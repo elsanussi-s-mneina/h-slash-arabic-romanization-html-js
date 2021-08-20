@@ -3,8 +3,8 @@ A web application for tranliterating Arabic to Latin characters according to a t
 
 
 # Current Status
-- It is working.
-- Future changes may come.
+- works for demo purposes, but not widely tested and likely contains some errors.
+- needs unit tests
 
 # Details of the Transliteration System
 The system has the following properties:
