@@ -519,6 +519,10 @@
 			// Replace word initial alef with ALEF WASLA.
 			const wordInitialAlef =  /( |\t|\n|\r)\u0627/g;
 			text = text.replaceAll(wordInitialAlef, '$1' + ARABIC_LETTER_ALEF_WASLA);
+			text = text.replaceAll(SEP, "");
+			text = text.replaceAll("#2#-", "");
+
+
 			console.log(text);
 			return text;
 		}
@@ -562,9 +566,9 @@
 			arabicText = arabicText.substring(1);
 
 			// Remove all the chunk separators
-			arabicText = arabicText.replaceAll("-#٢#-", "");
-			arabicText = arabicText.replaceAll("#٢#-", "");
-			return arabicText;
+			arabicText = arabicText.replaceAll(SEP, "");
+			arabicText = arabicText.replaceAll("#2#-", "");
+			return  arabicText;
 		}
 
 		function romanize()
