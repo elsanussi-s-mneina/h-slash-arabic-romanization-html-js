@@ -16,3 +16,7 @@
  - this was accomplished using a separator character and chunking
     as part of the transliteration process. The separator character is
 	removed at the end of the process.
+
+## September 4, 2021: version 0.8.3
+- implement quick apostrophe mode (in cases where a Maltese keyboard layout is not available an apostrophe can be used instead.)
+- change transliteration of qaaf to <q> instead of <qħ>.

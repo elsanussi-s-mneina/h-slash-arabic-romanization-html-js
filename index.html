@@ -53,7 +53,7 @@
 			<li><span class="latin">għ</span> → <span class="arabic">ع</span></li>
 			<li><span class="latin">ġħ</span> → <span class="arabic">غ</span></li>
 			<li><span class="latin">f</span> → <span class="arabic">ف</span></li>
-			<li><span class="latin">qħ</span> → <span class="arabic">ق</span></li>
+			<li><span class="latin">q</span> → <span class="arabic">ق</span></li>
 			<li><span class="latin">k</span> → <span class="arabic">ك</span></li>
 			<li><span class="latin">l</span> → <span class="arabic">ل</span></li>
 			<li><span class="latin">m</span> → <span class="arabic">م</span></li>
@@ -83,7 +83,7 @@
 		<h2>Try it</h2>
 		<div>
 			<label for="latinScriptText">Latin Text:</label>
-			<textarea id="latinScriptText" name="latinScriptText" cols="50" aria-live="assertive" lang="ma"></textarea>
+			<textarea id="latinScriptText" name="latinScriptText" cols="50" aria-live="assertive" spellcheck="false"></textarea>
 			<button onclick="document.getElementById('latinScriptText').value += 'ħ'; tryArabize();">ħ</button> 
 			<button onclick="document.getElementById('latinScriptText').value += 'ġ'; tryArabize();">ġ</button> 
 			<button onclick="document.getElementById('latinScriptText').value += 'ż'; tryArabize();">ż</button> 
@@ -103,7 +103,7 @@
 		</div>
 		<br>
 		<footer><a href="https://github.com/elsanussi-s-mneina/">Elsanussi Mneina made this page. صنع هذه الصفحة السنوسي امنينة </a>
-			<p><a href="https://github.com/elsanussi-s-mneina/h-slash-arabic-romanization-html-js">v0.8.1, (2021-08-20)</a></p>
+			<p><a href="https://github.com/elsanussi-s-mneina/h-slash-arabic-romanization-html-js">v0.8.3, (2021-09-04)</a></p>
 		</footer>
 		
 		<script>
@@ -268,7 +268,7 @@
 			,["a" + SEP + "a", ARABIC_FATHA + ARABIC_LETTER_SUPERSCRIPT_ALEF]
 			,["a" + SEP + "a", ARABIC_LETTER_SUPERSCRIPT_ALEF]
 			,["a" + SEP + "a", ARABIC_LETTER_ALEF]
-			,["e" + SEP + "e", ARABIC_FATHA + ARABIC_LETTER_ALEF_MAKSURA]
+			,["a" + SEP + "e", ARABIC_FATHA + ARABIC_LETTER_ALEF_MAKSURA]
 			,["e" + SEP + "e", ARABIC_LETTER_ALEF_MAKSURA]
 			,["a" + SEP + "i", ARABIC_FATHA + ARABIC_LETTER_YEH + ARABIC_SUKUN]
 			,["i" + SEP + "i", ARABIC_KASRA + ARABIC_LETTER_YEH + ARABIC_SUKUN]
@@ -318,8 +318,8 @@
 			,["s", '\u0633'] // ARABIC LETTER SEEN
 			,[double("f"), '\u0641' + ARABIC_SHADDA] // ARABIC LETTER FEH then ARABIC SHADDA
 			,["f", '\u0641'] // ARABIC LETTER FEH
-			,[double("qħ"), '\u0642' + ARABIC_SHADDA] // ARABIC LETTER QAF then ARABIC SHADDA
-			,["qħ", '\u0642'] // ARABIC LETTER QAF
+			,[double("q"), '\u0642' + ARABIC_SHADDA] // ARABIC LETTER QAF then ARABIC SHADDA
+			,["q", '\u0642'] // ARABIC LETTER QAF
 			,[double("k"), '\u0643' + ARABIC_SHADDA] // ARABIC LETTER KAF then ARABIC SHADDA
 			,["k", '\u0643'] // ARABIC LETTER KAF
 			,[double("l"), '\u0644' + ARABIC_SHADDA] // ARABIC LETTER LAM then ARABIC SHADDA
