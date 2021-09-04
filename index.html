@@ -566,8 +566,8 @@
 			arabicText = arabicText.substring(1);
 
 			// Remove all the chunk separators
-			arabicText = arabicText.replaceAll(SEP, "");
-			arabicText = arabicText.replaceAll("#2#-", "");
+			arabicText = arabicText.replaceAll("-#٢#-", "");
+			arabicText = arabicText.replaceAll("#٢#-", "");
 			return  arabicText;
 		}
 
