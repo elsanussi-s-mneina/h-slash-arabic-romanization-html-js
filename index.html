@@ -83,10 +83,11 @@
 		<h2>Try it</h2>
 		<div>
 			<label for="latinScriptText">Latin Text:</label>
-			<textarea id="latinScriptText" name="latinScriptText" cols="50" aria-live="assertive"></textarea>
+			<textarea id="latinScriptText" name="latinScriptText" cols="50" aria-live="assertive" lang="ma"></textarea>
 			<button onclick="document.getElementById('latinScriptText').value += 'ħ'; tryArabize();">ħ</button> 
 			<button onclick="document.getElementById('latinScriptText').value += 'ġ'; tryArabize();">ġ</button> 
 			<button onclick="document.getElementById('latinScriptText').value += 'ż'; tryArabize();">ż</button> 
+			<input id="quickApostropheLock" type="checkbox" /><label for="quickApostropheLock">Quick Apostrophe Mode</label>
 		</div>
 		<div>
 			<button id="transliterateToArabic">Transliterate Latin to Arabic ⬇️</button>
@@ -138,6 +139,11 @@
 				return document.getElementById("transliterationToLatinLock");
 			}
 
+			function getQuickApostropheLock()
+			{
+				return document.getElementById("quickApostropheLock");
+			}
+
 
 
 			getTransliterateToArabicButton().onclick = 
@@ -148,6 +154,12 @@
 
 			function tryArabize()
 			{
+				if (getQuickApostropheLock().checked) 
+				{
+					document.getElementById('latinScriptText').value =
+					apostrophize(document.getElementById('latinScriptText').value);
+				}
+
 				if (getTransliterateToArabicLock().checked)
 				{
 					arabize();
@@ -404,6 +416,14 @@
 		const LATIN_COLUMN = 0;
 		const ARABIC_COLUMN = 1;
 
+		function apostrophize(text)
+		{
+			text = text.replaceAll("g'", "ġ")
+			text = text.replaceAll("h'", "ħ")
+			text = text.replaceAll("z'", "ż")
+			return text
+		}
+
 		function setArabicText(text)
 		{
 			document.getElementById('arabicScriptText').value = text;
@@ -568,7 +588,7 @@
 			// Remove all the chunk separators
 			arabicText = arabicText.replaceAll("-#٢#-", "");
 			arabicText = arabicText.replaceAll("#٢#-", "");
-			return  arabicText;
+			return  arabicText
 		}
 
 		function romanize()
