@@ -20,3 +20,14 @@
 ## September 4, 2021: version 0.8.3
 - implement quick apostrophe mode (in cases where a Maltese keyboard layout is not available an apostrophe can be used instead.)
 - change transliteration of qaaf to <q> instead of <qħ>.
+
+## September 14, 2021: version 0.9.0
+- handle sun and moon letters (Arabic definite article special cases)
+ for example ax-xams becomes الشَّمس 
+- check the most common checkboxes (by default set to
+ romanize text as the user types)
+- add style to the legend
+- change GUI so that it is easier to see both textboxes at once.
+- add placeholder text into textboxes so that it is more obvious what
+to do.
+- Explain using a few paragraphs what this page is about.

@@ -26,13 +26,56 @@
 			font-family: 'Droid Arabic Kufi', serif;
 		}
 
+		.translitLegend
+		{
+			font-size: 20px;
+			background-color: black;
+		}
+
+		.translitLegend li
+		{
+			color: black;
+			list-style: none;
+			display: inline-block;
+			margin: 0.2em;
+			background-color: wheat;
+			padding: 0.4em;
+			border-radius: 0.3em;
+		}
+
 	</style>
 </head>
 <body>
 	<h1>Arabic Romanization (H-slash) System</h1>
 
+	<p>This web page demonstrates an Arabic Romanization system made by me, Elsanussi Mneina.
+		This romanization system was designed by starting from the Latin
+		orthography used for writing Maltese, and making various adjustments
+		to allow it to represent Arabic more faithfully. These adjustments
+		are necessary because Standard Arabic has more consonant phonemes than Maltese.
+	</p>
+	<p>
+		For more information about this transliteration system,
+		you may want to watch a <a href="https://youtu.be/6Bh2DuZoQ0Y?t=563">
+		short demo</a> at https://youtu.be/6Bh2DuZoQ0Y?t=563
+		where I briefly demonstrate an older version of this application.
+	</p>
+	<p>
+		Note that the H-slash Romanization system system for Arabic is not
+		standardized, nor does it have any official status. However, I have 
+		tried to make it more suitable than the usual adhoc systems that
+		are found in the wild. For this reason, it may not be suitable for all
+		purposes. Therefore this is best considered a hobby, or experimental
+		at this stage (both the software web application and the transliteration
+		system).
+
+		End of message.
+	</p>
+	<p>
+		Message written by Elsanussi Mneina on September 14, 2021.
+	</p>
 	<h2>Legend</h2>
-		<ul>
+		<ul class="translitLegend">
 			<li><span class="latin">q'</span> → <span class="arabic">ء</span></li>
 			<li><span class="latin">b</span> → <span class="arabic">ب</span></li>
 			<li><span class="latin">t</span> → <span class="arabic">ت</span></li>
@@ -65,7 +108,7 @@
 			<li><span class="latin">q'aa</span> → <span class="arabic">آ</span></li>
 		</ul>
 		<h3>Vowels, dipthongs, and syllables</h3>
-		<ul>
+		<ul class="translitLegend">
 			<li><span class="latin">ba</span> → <span class="arabic">بَ</span></li>
 			<li><span class="latin">bi</span> → <span class="arabic">بِ</span></li>
 			<li><span class="latin">bu</span> → <span class="arabic">بُ</span></li>
@@ -74,36 +117,38 @@
 			<li><span class="latin">buu</span> → <span class="arabic">بُوْ</span></li>
 			<li><span class="latin">bai</span> → <span class="arabic">بَيْ</span></li>
 			<li><span class="latin">bau</span> → <span class="arabic">بَوْ</span></li>
-			<li><span class="latin">ba·n</span> → <span class="arabic">بًا</span></li>
-			<li><span class="latin">bi·n</span> → <span class="arabic">بٍ</span></li>
-			<li><span class="latin">bu·n</span> → <span class="arabic">بٌ</span></li>
-			<li><span class="latin">ba·t</span> → <span class="arabic">بَة</span></li>
+			<li><span class="latin">ba-n</span> → <span class="arabic">بًا</span></li>
+			<li><span class="latin">bi-n</span> → <span class="arabic">بٍ</span></li>
+			<li><span class="latin">bu-n</span> → <span class="arabic">بٌ</span></li>
+			<li><span class="latin">ba-t</span> → <span class="arabic">بَة</span></li>
 		</ul>
 
 		<h2>Try it</h2>
 		<div>
-			<label for="latinScriptText">Latin Text:</label>
-			<textarea id="latinScriptText" name="latinScriptText" cols="50" aria-live="assertive" spellcheck="false"></textarea>
+			<br/>
 			<button onclick="document.getElementById('latinScriptText').value += 'ħ'; tryArabize();">ħ</button> 
 			<button onclick="document.getElementById('latinScriptText').value += 'ġ'; tryArabize();">ġ</button> 
 			<button onclick="document.getElementById('latinScriptText').value += 'ż'; tryArabize();">ż</button> 
-			<input id="quickApostropheLock" type="checkbox" /><label for="quickApostropheLock">Quick Apostrophe Mode</label>
+			<br/>
+			<label for="latinScriptText">Latin Text:</label>
+			<textarea id="latinScriptText" name="latinScriptText" cols="50" aria-live="assertive" spellcheck="false" placeholder="Enter Latin text here!"></textarea>
+			<input id="quickApostropheLock" type="checkbox" checked /><label for="quickApostropheLock">Quick Apostrophe Mode</label>
 		</div>
 		<div>
-			<button id="transliterateToArabic">Transliterate Latin to Arabic ⬇️</button>
-			<input id="transliterationToArabicLock" type="checkbox" /><label for="transliterationToArabicLock">Transliterate to Arabic as I type</label>
+			<button id="transliterateToArabic">Arabize ⬇️</button>
+			<input id="transliterationToArabicLock" type="checkbox" checked /><label for="transliterationToArabicLock">Transliterate to Arabic as I type</label>
 			<br>
-			<button id="transliterateToLatin">⬆️ Transliterate Arabic to Latin</button>
+			<button id="transliterateToLatin">⬆️ Romanize</button>
 			<input id="transliterationToLatinLock" type="checkbox" /><label for="transliterationToLatinLock">Transliterate to Latin as I type</label>
 		
 		</div>
 		<div>
 			<label for="arabicScriptText">Arabic Text:</label>
-			<textarea id="arabicScriptText" name="arabicScriptText" lang="ar" dir="rtl" cols="50" aria-live="assertive"></textarea>
+			<textarea id="arabicScriptText" name="arabicScriptText" lang="ar" dir="rtl" cols="20" aria-live="assertive" placeholder="اكتُبْ هُنَا"></textarea>
 		</div>
 		<br>
 		<footer><a href="https://github.com/elsanussi-s-mneina/">Elsanussi Mneina made this page. صنع هذه الصفحة السنوسي امنينة </a>
-			<p><a href="https://github.com/elsanussi-s-mneina/h-slash-arabic-romanization-html-js">v0.8.3, (2021-09-04)</a></p>
+			<p><a href="https://github.com/elsanussi-s-mneina/h-slash-arabic-romanization-html-js">v0.9.0, (2021-09-14)</a></p>
 		</footer>
 		
 		<script>
@@ -212,13 +257,26 @@
 		const ARABIC_LETTER_HEH = '\u0647'; 
 		const ARABIC_LETTER_AIN = '\u0639';
 		const ARABIC_LETTER_DAL = '\u062f';
+		const ARABIC_LETTER_THAL = '\u0630';
+		const ARABIC_LETTER_REH = '\u0631'; 
+		const ARABIC_LETTER_ZAIN = '\u0632';
+		const ARABIC_LETTER_SEEN = '\u0633';
+		const ARABIC_LETTER_SAD = '\u0635';
+		const ARABIC_LETTER_DAD = '\u0636';
+		const ARABIC_LETTER_TAH = '\u0637';
+		const ARABIC_LETTER_ZAH = '\u0638';
+		const ARABIC_LETTER_LAM = '\u0644';
+		const ARABIC_LETTER_NOON = '\u0646';
+		
 		const ARABIC_LETTER_SUPERSCRIPT_ALEF = '\u0670';
 		const ARABIC_LETTER_ALEF_MAKSURA = '\u0649';
 		const ARABIC_SUBSCRIPT_ALEF = '\u0656';
 		const ARABIC_SMALL_HIGH_ROUNDED_ZERO = '\u06df';
-		const ARABIC_LETTER_JEEM = '\u062c'
-		const ARABIC_LETTER_GHAIN = '\u063a'
-
+		const ARABIC_LETTER_JEEM = '\u062c';
+		const ARABIC_LETTER_GHAIN = '\u063a';
+		const ARABIC_LETTER_SHEEN = '\u0634';
+		const ARABIC_LETTER_TEH = '\u062a'
+		const ARABIC_LETTER_THEH = '\u062b';
 		// pre-romanization exclusion characters are arabic characters that must be deleted before
 		// romanization is started. They have no use in the Latin script.
 		
@@ -240,7 +298,22 @@
 
 		const transliterationTable = 
 			[
-			["-" + SEP + "q'" + SEP + "q'i", ARABIC_LETTER_ALEF_WITH_HAMZA_BELOW + ARABIC_SHADDA + ARABIC_KASRA]
+			[SEP + " " + SEP + "ax-x" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_SHEEN + ARABIC_SHADDA]
+			,[SEP + " " + SEP + "at-t" , " " +  ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_TEH + ARABIC_SHADDA]
+			,[SEP + " " + SEP + "at'-t'" , " " +  ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_THEH + ARABIC_SHADDA]
+			,[SEP + " " + SEP + "ad-d" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_DAL + ARABIC_SHADDA]
+			,[SEP + " " + SEP + "ad'-d'" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_THAL + ARABIC_SHADDA]
+			,[SEP + " " + SEP + "ar-r" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_REH + ARABIC_SHADDA]
+			,[SEP + " " + SEP + "aż-ż" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_ZAIN + ARABIC_SHADDA]
+			,[SEP + " " + SEP + "as-s" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_SEEN + ARABIC_SHADDA]
+			,[SEP + " " + SEP + "asħ-sħ" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_SAD + ARABIC_SHADDA]
+			,[SEP + " " + SEP + "adħ-dħ" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_DAD + ARABIC_SHADDA]
+			,[SEP + " " + SEP + "atħ-tħ" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_TAH + ARABIC_SHADDA]
+			,[SEP + " " + SEP + "ad'ħ-d'ħ" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_ZAH + ARABIC_SHADDA]
+			,[SEP + " " + SEP + "an-n" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_NOON + ARABIC_SHADDA]
+			,[SEP + " " + SEP + "al-l" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_LAM + ARABIC_SHADDA]
+
+			,["-" + SEP + "q'" + SEP + "q'i", ARABIC_LETTER_ALEF_WITH_HAMZA_BELOW + ARABIC_SHADDA + ARABIC_KASRA]
 			,["-" + SEP + "q'" + SEP + "i", ARABIC_LETTER_ALEF_WITH_HAMZA_BELOW + ARABIC_KASRA]
 			,["-" + SEP + "q'" + SEP + "q'" + SEP + "i", ARABIC_LETTER_ALEF_WITH_HAMZA_BELOW + ARABIC_SHADDA]
 			,["-" + SEP + "q'" + SEP + "i", ARABIC_LETTER_ALEF_WITH_HAMZA_BELOW]
@@ -251,9 +324,11 @@
 			,["-" + SEP + "q'", ARABIC_LETTER_HAMZA]
 			,["q'" + SEP + "q'", ARABIC_LETTER_WAW_WITH_HAMZA_ABOVE + ARABIC_SHADDA]
 			,["q'", ARABIC_LETTER_WAW_WITH_HAMZA_ABOVE]
-			,["q'" + SEP + "q'", ARABIC_LETTER_YEH_WITH_HAMZA_ABOVE + ARABIC_SHADDA]
-			,["q'", ARABIC_LETTER_YEH_WITH_HAMZA_ABOVE]
+			,["j'" + SEP + "j'", ARABIC_LETTER_YEH_WITH_HAMZA_ABOVE + ARABIC_SHADDA]
+			,["j'", ARABIC_LETTER_YEH_WITH_HAMZA_ABOVE]
 			,["-" + SEP + "-", ARABIC_LETTER_ALEF_WASLA]
+
+
 
 			,["hħ" + SEP + "hħ", ARABIC_LETTER_HAH + ARABIC_SHADDA]
 			,["hħ", ARABIC_LETTER_HAH]
@@ -287,8 +362,8 @@
 			,["tħ", '\u0637'] // ARABIC LETTER TAH
 			,["t'" + SEP + "t'", '\u062b' + ARABIC_SHADDA] // ARABIC LETTER THEH then SHADDA
 			,["t'", '\u062b'] // ARABIC LETTER THEH
-			,["t" + SEP + "t", '\u062a' + ARABIC_SHADDA] // ARABIC LETTER TEH then ARABIC SHADDA
-			,["t", '\u062a'] // ARABIC LETTER TEH
+			,["t" + SEP + "t", ARABIC_LETTER_TEH + ARABIC_SHADDA] // ARABIC LETTER TEH then ARABIC SHADDA
+			,["t", ARABIC_LETTER_TEH] // ARABIC LETTER TEH
 			,["ġ" + SEP + "ġħ", ARABIC_LETTER_JEEM + ARABIC_LETTER_GHAIN]
 			,[double("ġħ"), ARABIC_LETTER_GHAIN + ARABIC_SHADDA] // ARABIC LETTER GHAIN then ARABIC SHADDA
 			,["ġħ", ARABIC_LETTER_GHAIN] 
@@ -310,8 +385,8 @@
 			,["r", '\u0631'] // ARABIC LETTER REH
 			,[double("ż"), '\u0632' + ARABIC_SHADDA] // ARABIC LETTER ZAIN then ARABIC SHADDA
 			,["ż", '\u0632'] // ARABIC LETTER ZAIN
-			,[double("x"), '\u0634' + ARABIC_SHADDA] // ARABIC LETTER SHEEN then ARABIC SHADDA
-			,["x", '\u0634'] // ARABIC LETTER SHEEN
+			,[double("x"), ARABIC_LETTER_SHEEN + ARABIC_SHADDA] // ARABIC LETTER SHEEN then ARABIC SHADDA
+			,["x", ARABIC_LETTER_SHEEN] // ARABIC LETTER SHEEN
 			,[double("sħ"), '\u0635' + ARABIC_SHADDA] // ARABIC LETTER SAD then ARABIC SHADDA
 			,["sħ", '\u0635'] // ARABIC LETTER SAD
 			,[double("s"), '\u0633' + ARABIC_SHADDA] // ARABIC LETTER SEEN then ARABIC SHADDA
@@ -322,8 +397,8 @@
 			,["q", '\u0642'] // ARABIC LETTER QAF
 			,[double("k"), '\u0643' + ARABIC_SHADDA] // ARABIC LETTER KAF then ARABIC SHADDA
 			,["k", '\u0643'] // ARABIC LETTER KAF
-			,[double("l"), '\u0644' + ARABIC_SHADDA] // ARABIC LETTER LAM then ARABIC SHADDA
-			,["l", '\u0644'] // ARABIC LETTER LAM
+			,[double("l"), ARABIC_LETTER_LAM + ARABIC_SHADDA] // ARABIC LETTER LAM then ARABIC SHADDA
+			,["l", ARABIC_LETTER_LAM] // ARABIC LETTER LAM
 			,[double("m"), '\u0645' + ARABIC_SHADDA] // ARABIC LETTER MEEM then ARABIC SHADDA
 			,["m", '\u0645'] // ARABIC LETTER MEEM
 			,[double("n"), '\u0646' + ARABIC_SHADDA] // ARABIC LETTER NOON then ARABIC SHADDA
@@ -373,6 +448,8 @@
 			,[" " + SEP + "u", ' ' + ARABIC_LETTER_ALEF + ARABIC_DAMMA]
 			,[" " + SEP + "i", ' ' + ARABIC_LETTER_ALEF + ARABIC_KASRA]
 
+
+
 			,["a", ARABIC_FATHA]
 			,["u", ARABIC_DAMMA]
 			,["i", ARABIC_KASRA]
@@ -412,7 +489,13 @@
 			,['9', '\u06f9'] // EXTENDED ARABIC-INDIC DIGIT NINE
 			,['\u221b', '\u0606'] // ARABIC-INDIC CUBE ROOT to and from CUBE ROOT
 			,['\u221c', '\u0607'] // ARABIC-INDIC FOURTH ROOT to and from FOURTH ROOT
-			];
+
+
+		];
+
+
+
+
 		const LATIN_COLUMN = 0;
 		const ARABIC_COLUMN = 1;
 
@@ -466,6 +549,7 @@
 		
 		function chunkLatin(text) {
 			let result = null;
+			console.log("chunking", text);
 			if (text[2] === "ħ" && text[1] === "'"){
 				result = [text.substring(0,3), text.substring(3)];
 			} else if (text[1] === "'") {
@@ -473,7 +557,29 @@
 			} else if (text[1] === "ħ") {
 				result = [text.substring(0,2), text.substring(2)];
 			} else {
-				result = [text.substring(0,1), text.substring(1)];
+				if (text[0] === "a" && text[2] === "-" && text[1] === text[3])
+				{
+					// This branch handles "ax-x", "as-s", et cetera.
+					console.log("got here!!!(", text.substring(0,4), ")")
+					result = [text.substring(0,4), text.substring(4)];
+				}
+				else if (text[0] === "a" && text[2] === "ħ" && text[3] === "-" 
+				&& text[1] === text[4] && text[2] === text[5])
+				{
+					// This branch handles "asħ-sħ", "atħ-tħ", and "adħ-dħ"
+					result = [text.substring(0,6), text.substring(6)];
+
+				}
+				else if (text[0] === "a" && text[2] === "'" && text[3] === "ħ" && text[4] === "-" 
+				&& text[1] === text[5] && text[2] === text[6] && text[3] === text[7])
+				{
+					// This branch handles "ad'ħ-ad'ħ", etc.
+					result = [text.substring(0, 8), text.substring(8)];
+				}
+				else
+				{
+					result = [text.substring(0,1), text.substring(1)];
+				}
 			}
 			return result;
 		}
@@ -495,8 +601,12 @@
 
 		function arabizeNextChunk(latinText)
 		{
+			console.log("LLatin text is:", latinText)
 			latinText = latinText.toLowerCase();
 			
+			let maxLengthMatchTuple = ["", ""];
+			let matchFound = false;
+
 			for (var i = 0; i < transliterationTable.length; i++)
 			{
 				const arabicChunk = transliterationTable[i][ARABIC_COLUMN];
@@ -504,14 +614,26 @@
 
 				if (latinText.startsWith(latinChunk))
 				{
+					console.log(latinText, latinChunk)
 					// Transliterate the next Latin chunk.
 					// Also return the rest of the Latin text.
-					return [arabicChunk, latinText.substring(latinChunk.length)];
+					if (maxLengthMatchTuple[0].length < arabicChunk.length)
+					{
+						console.log("candidate translit for chunk: arabicChunk:", arabicChunk, "to ", latinChunk)
+						matchFound = true;
+						maxLengthMatchTuple = [arabicChunk, latinText.substring(latinChunk.length)];
+					}
 				}
 			}
-
+			if (matchFound)
+			{
+				console.log("final choice for chunk:", maxLengthMatchTuple)
+				return maxLengthMatchTuple;
+			} else
+			{
 			// return the next character as is, and everything else
-			return [latinText.charAt(0), latinText.substring(1)];
+				return [latinText.charAt(0), latinText.substring(1)];
+			}
 		}
 
 		function romanizationPreprocessing(text)
@@ -570,7 +692,7 @@
 			// because the romanization algorithm needs it.
 			// Otherwise it might not add the necessary alef at
 			// the beginning when the text begins with a vowel.
-			latinText = " " + latinText;
+			latinText = "  " + latinText;
 
 			
 			latinText = chunkAllLatin(latinText);
