@@ -31,3 +31,13 @@
 - add placeholder text into textboxes so that it is more obvious what
 to do.
 - Explain using a few paragraphs what this page is about.
+
+# September 15, 2021: version 1.0
+- be able to write any letter with a hamza directly.
+  - I needed to do this because I have not implemented the hamza spelling rules,
+  - and because I want people to be able to write hamza on the carrier
+    letter they choose
+    even if they do not want to write the vowels for a word.
+- Ensure that dash disappears in transliteration of definite article lacking
+assimilation (i.e. with moon letters): i.e.  Arabization of "al-" should 
+not include a dash character. 
