@@ -6,6 +6,10 @@ A web application for tranliterating Arabic to Latin characters according to a t
 - works for demo purposes, but not widely tested and likely contains some errors.
 - needs unit tests
 
+# Plans
+- This is going to continue being experimental.
+- My current intention is to start this project over in a different programming language using what I have learned so far.
+
 # Details of the Transliteration System
 The system has the following properties:
 - only uses letter characters from Maltese
