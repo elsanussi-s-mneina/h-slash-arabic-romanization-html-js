@@ -121,6 +121,7 @@
       <li><span class="latin">bu-n</span> → <span class="arabic">بٌ</span></li>
       <li><span class="latin">ba-t</span> → <span class="arabic">بَة</span></li>
       <li><span class="latin">baa'</span> → <span class="arabic">بٰ</span></li>
+
     </ul>
     <h3>overrides (useful when you don't write vowels, or need to write hamza)</h3>
     <ul class="translitLegend">
@@ -315,7 +316,11 @@
       // transliteration table 1 has transliterations forr definite article and hamza.
       const transliterationTable1 = [
       	["aa'", ARABIC_LETTER_SUPERSCRIPT_ALEF],
-        [SEP + " " + SEP + "ax-x", " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_SHEEN + ARABIC_SHADDA],
+        [SEP + " " + SEP + "al-a", " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_ALEF + ARABIC_FATHA],
+        [SEP + " " + SEP + "al-i", " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_ALEF + ARABIC_KASRA],
+        [SEP + " " + SEP + "al-u", " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_ALEF + ARABIC_DAMMA],
+
+[SEP + " " + SEP + "ax-x", " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_SHEEN + ARABIC_SHADDA],
         [SEP + " " + SEP + "at-t", " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_TEH + ARABIC_SHADDA],
         [SEP + " " + SEP + "aṫ-ṫ", " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_THEH + ARABIC_SHADDA],
         [SEP + " " + SEP + "ad-d", " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_DAL + ARABIC_SHADDA],
@@ -627,8 +632,21 @@
       	return text[0] === "a" && text[0] === text[1] && text[2] === "'";
       }
 
-      function startsWith4CharDefiniteArticle(text) {
+			 function startsWith4CharSunLetterDefiniteArticle(text) {
+        // This is for sun letters, e.g. ax-xams
         return text[0] === "a" && text[2] === "-" && text[1] === text[3];
+      }
+
+			 function startsWith4CharVowelDefiniteArticle(text) {
+        // This is for al-i, al-u, al-a
+        return text[0] === "a" && text[1] === "l" && text[2] === "-" && text[3] === "a" || text[3] === "i" || text[3] == "u";
+      }
+
+
+      function startsWith4CharDefiniteArticle(text) {
+        return startsWith4CharSunLetterDefiniteArticle(text) ||
+        startsWith4CharVowelDefiniteArticle(text)
+        ;
       }
 
       function startsWith6CharDefiniteArticle(text) {
@@ -637,7 +655,6 @@
       }
 
       function chunkLatin(text) {
-        console.log("text is", text);
         let result = null;
         if (startsWith4CharHamzaRomanization(text)) {
           result = firstNCharsThenRest(text, 4);
