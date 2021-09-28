@@ -291,6 +291,7 @@
 		const ARABIC_LETTER_SHEEN = '\u0634';
 		const ARABIC_LETTER_TEH = '\u062a'
 		const ARABIC_LETTER_THEH = '\u062b';
+    const MIDDLE_DOT = '\u00b7';
 		// pre-romanization exclusion characters are arabic characters that must be deleted before
 		// romanization is started. They have no use in the Latin script.
 		
@@ -309,6 +310,14 @@
 		function double(text) {
 			return text + SEP + text + SEP;
 		}
+    
+    function doubleArabic(text) {
+    	return text + text;
+    }
+
+		function middleDotDouble(text) {
+    	return text + SEP + MIDDLE_DOT + SEP + text;
+    }
 
 		const transliterationTable = 
 			[
@@ -376,10 +385,13 @@
 
 
 			,[double("b"), '\u0628' + ARABIC_SHADDA] // ARABIC LETTER BEH then SHADDA
+			,[middleDotDouble("b"), doubleArabic('\u0628')] // ARABIC LETTER BEH twice
 			,["b", '\u0628'] // ARABIC LETTER BEH
+
 			,["-" + SEP + "t" + SEP + "t", '\u0629' + ARABIC_SHADDA] // ARABIC LETTER TEH MARBUTA then SHADDA (this never happens in Standard Arabic but we support it for consistency sake, and because there is no logical reason it should not be possible.)
 			,["-" + SEP + "t", '\u0629'] // ARABIC LETTER TEH MARBUTA
 			,[double("tħ"), '\u0637' + ARABIC_SHADDA] // ARABIC LETTER TAH then ARABIC SHADDA
+			,[middleDotDouble("tħ"), doubleArabic('\u0637')] // ARABIC LETTER TAH twice
 			,["tħ", '\u0637'] // ARABIC LETTER TAH
 			,["ṫ" + SEP + "ṫ", '\u062b' + ARABIC_SHADDA] // ARABIC LETTER THEH then SHADDA
 			,["ṫ", '\u062b'] // ARABIC LETTER THEH
@@ -530,6 +542,8 @@
 			text = text.replaceAll("z'", "ż")	
 			text = text.replaceAll("C'", "Ċ")
 			text = text.replaceAll("c'", "ċ")
+			text = text.replaceAll("-'", MIDDLE_DOT);
+
 			return text
 		}
 
@@ -784,6 +798,10 @@
 			setArabicText(arabicText2);
 		}
 
+		function removeAllMiddleDots(text) {
+    	return text.replaceAll("\u00B7", "");
+    }
+
 		function addExtraAlefAfterFathatan(text)
 		{
 			// Add ARABIC LETTER ALEF after every ARABIC FATHATAN character
@@ -811,7 +829,9 @@
 
 		function arabizePostprocessing(text)
 		{
-			return addExtraAlefAfterFathatan(text);
+    	let result = removeAllMiddleDots(text);
+			result = addExtraAlefAfterFathatan(result);
+      return result;
 		}
 		</script>
 
