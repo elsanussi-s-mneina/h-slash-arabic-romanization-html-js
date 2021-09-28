@@ -148,6 +148,10 @@
 			<button id="transliterateToArabic">Arabize ⬇️</button>
 			<input id="transliterationToArabicLock" type="checkbox" checked="checked"><label for="transliterationToArabicLock">Transliterate to Arabic as I type</label>
 			<br>
+      <label for="asciiRomanization">ASCII compatible Romanization:</label>
+      <div id="asciiRomanization">
+       (none)
+      </div>
 			<button id="transliterateToLatin">⬆️ Romanize</button>
 			<input id="transliterationToLatinLock" type="checkbox"><label for="transliterationToLatinLock">Transliterate to Latin as I type</label>
 		
@@ -518,9 +522,14 @@
 
 		function apostrophize(text)
 		{
-			text = text.replaceAll("g'", "ġ")
+			text = text.replaceAll("G'", "Ġ")
+			text = text.replaceAll("g'", "ġ")	
+			text = text.replaceAll("H'", "Ħ")
 			text = text.replaceAll("h'", "ħ")
-			text = text.replaceAll("z'", "ż")
+			text = text.replaceAll("Z'", "Ż")	
+			text = text.replaceAll("z'", "ż")	
+			text = text.replaceAll("C'", "Ċ")
+			text = text.replaceAll("c'", "ċ")
 			return text
 		}
 
@@ -538,6 +547,11 @@
 		{
 			document.getElementById('latinScriptText').value = text;
 		}
+    
+    function setAsciiRomanization(text)
+    {
+			document.getElementById('asciiRomanization').innerText = text;
+    }
 
 		function getLatinText()
 		{
@@ -726,19 +740,39 @@
 		{
 			var arabicText = getArabicText();
 			var latinText = romanizeText(arabicText);
-			setLatinText(latinText)
+			setLatinText(latinText);
+      var latinAsciiText = convertRomanizationToAscii(latinText);
+      setAsciiRomanization(latinAsciiText);
 		}
     
     function normalizeLatinText(latinText)
     {
     	latinText = latinText.replaceAll("d'", "ḋ");
       latinText = latinText.replaceAll("t'", "ṫ");
-      console.log(latinText);
       // Using this single character (d with dot above)
       // instead of d apostrophe greatly simplifies
       // the code by removing one case from an if-statement
     
     	return latinText;	
+    }
+
+		function convertRomanizationToAscii(latinText) {
+    	latinText = latinText.replaceAll("Ḋ", "D'");
+			latinText = latinText.replaceAll("ḋ", "d'");
+     	latinText = latinText.replaceAll("Ṫ", "T'");
+      latinText = latinText.replaceAll("ṫ", "t'");
+      // ḊṪ
+      
+			latinText = latinText.replaceAll("Ġ", "G'")
+			latinText = latinText.replaceAll("ġ", "g'")	
+			latinText = latinText.replaceAll("Ħ", "H'")
+			latinText = latinText.replaceAll("ħ", "h'")
+			latinText = latinText.replaceAll("Ż", "Z'")	
+			latinText = latinText.replaceAll("ż", "z'")	
+			latinText = latinText.replaceAll("Ċ", "C'")
+			latinText = latinText.replaceAll("ċ", "c'")
+
+    	return latinText;
     }
 
 		function arabize()
