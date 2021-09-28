@@ -587,40 +587,61 @@
 			return [arabicText.charAt(0), arabicText.substring(1)];
 		}
 
-		
+		function firstNCharsThenRest(text, charCount) {
+					return [text.substring(0, charCount), text.substring(charCount)];
+    }
+    
+    function startsWith4CharHamzaRomanization(text) {
+    	return text[0] === "q" && text[1] === "'" && text[2] === "0" && text[3] === "0" || text[3] == "2" || text[3] == "3";
+    }
+    
+    function startsWith3CharHamzaRomanization(text) {
+    		return text[0] === "q" && text[1] === "'" && 
+			   (text[2] === "0" || text[2] === "1" || text[2] === "2" || text[2] == "3" ||
+			   text[2] === "4" || text[2] === "5" || text[2] == "6" ||
+			   text[2] === "7" || text[2] === "8" || text[2] == "9");
+    }
+    
+    function startsWith4CharDefiniteArticle(text) {
+    	return text[0] === "a" && text[2] === "-" && text[1] === text[3];
+    }
+    
+    function startsWith6CharDefiniteArticle(text) {
+    	return text[0] === "a" && text[2] === "ħ" && text[3] === "-" 
+				&& text[1] === text[4] && text[2] === text[5];
+    }
+    
 		function chunkLatin(text) {
 			console.log("text is", text);
 			let result = null;
-			if (text[0] === "q" && text[1] === "'" && text[2] === "0" && text[3] === "0") {
-				result = [text.substring(0,4), text.substring(4)];
-			} else if (text[0] === "q" && text[1] === "'" && 
-			   (text[2] === "0" || text[2] === "1" || text[2] === "2" || text[2] == "3" ||
-			   text[2] === "4" || text[2] === "5" || text[2] == "6" ||
-			   text[2] === "7" || text[2] === "8" || text[2] == "9")) {
-				result = [text.substring(0,3), text.substring(3)];
+			if (startsWith4CharHamzaRomanization(text)) {
+				result = firstNCharsThenRest(text, 4);
+			} else if (startsWith3CharHamzaRomanization(text)) {
+				result =  firstNCharsThenRest(text, 3);
 			} else if (text[1] === "'") {
-				result = [text.substring(0,2), text.substring(2)];
+				result = firstNCharsThenRest(text, 2);
 			} else if (text[1] === "ħ") {
-				result = [text.substring(0,2), text.substring(2)];
+				result = firstNCharsThenRest(text, 2);
 			} else {
-				if (text[0] === "a" && text[2] === "-" && text[1] === text[3])
+				if (startsWith4CharDefiniteArticle(text))
 				{
 					// This branch handles "ax-x", "as-s", et cetera.
-					result = [text.substring(0,4), text.substring(4)];
+					result = firstNCharsThenRest(text, 4);
 				}
-				else if (text[0] === "a" && text[2] === "ħ" && text[3] === "-" 
-				&& text[1] === text[4] && text[2] === text[5])
+				else if (startsWith6CharDefiniteArticle(text))
 				{
 					// This branch handles "asħ-sħ", "atħ-tħ", and "adħ-dħ"
-					result = [text.substring(0,6), text.substring(6)];
+					result = firstNCharsThenRest(text, 6);
 
 				} else if (text[0] === "a" && text[1] === "l" && text[2] === "-") {
 					// This branch handles the moon letters, i.e. "al-"
-					result = [text.substring(0, 3), text.substring(3)];
+          // The chunk is 3 characters.
+					result = firstNCharsThenRest(text, 3);
 				}
 				else
 				{
-					result = [text.substring(0,1), text.substring(1)];
+          // Chunk is a single character.
+					result = firstNCharsThenRest(text, 1);
 				}
 			}
 			return result;
