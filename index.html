@@ -570,7 +570,7 @@
 				const arabicChunk = transliterationTable[i][ARABIC_COLUMN];
 				const latinChunk = transliterationTable[i][LATIN_COLUMN];
 
-				if (arabicText.startsWith(arabicChunk))
+				if (arabicText.substring(0, arabicChunk.length) == arabicChunk)
 				{
 					// Transliterate the next arabic chunk.
 					// Also return the rest of the Arabic text.
@@ -626,7 +626,12 @@
 			let resultText = "";
 
 			while (remainingText.length > 0) {
-				[currChunk, rest] = chunkLatin(remainingText);
+				var currChunk;
+				var rest;
+				var chunkResult;
+				chunkResult = chunkLatin(remainingText);
+				currChunk = chunkResult[0];
+				rest = chunkResult[1];
 				remainingText = rest;
 				resultText += SEP + currChunk;
 	
@@ -649,7 +654,7 @@
         	
 
 
-				if (latinText.startsWith(latinChunk))
+				if (latinText.substring(0, latinChunk.length) == latinChunk)
 				{
 					// Transliterate the next Latin chunk.
 					// Also return the rest of the Latin text.
