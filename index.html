@@ -308,7 +308,7 @@
 
 		// How to recognize doubled graphs without overparsing.
 		function double(text) {
-			return text + SEP + text + SEP;
+			return text + SEP + text;
 		}
     
     function doubleArabic(text) {
@@ -319,7 +319,15 @@
     	return text + SEP + MIDDLE_DOT + SEP + text;
     }
 
-		const transliterationTable = 
+		function translitForConsonant(latinGrapheme, arabicGrapheme) {
+    	return [
+    		 [double(latinGrapheme), arabicGrapheme + ARABIC_SHADDA] 
+				,[middleDotDouble(latinGrapheme), doubleArabic(arabicGrapheme)] 
+				,[latinGrapheme, arabicGrapheme] 
+			];
+    }
+
+		const transliterationTable1 = 
 			[
 			[SEP + " " + SEP + "ax-x" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_SHEEN + ARABIC_SHADDA]
 			,[SEP + " " + SEP + "at-t" , " " +  ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_TEH + ARABIC_SHADDA]
@@ -358,17 +366,25 @@
 			,["j'", ARABIC_LETTER_YEH_WITH_HAMZA_ABOVE]
 			,["-" + SEP + "-", ARABIC_LETTER_ALEF_WASLA]
 
+			];
+      
+      function generateConsonantTransliterationTable() {
+      		let table = [];
+          table  = table.concat(translitForConsonant("hħ", ARABIC_LETTER_HAH))
+          .concat(translitForConsonant("h", ARABIC_LETTER_HEH))
+          .concat(translitForConsonant("għ", ARABIC_LETTER_AIN))
+          .concat(translitForConsonant("b", '\u0628'))
+          .concat(translitForConsonant("tħ", '\u0637'))
+          .concat(translitForConsonant("ṫ", '\u062b'))
+          .concat(translitForConsonant("t", ARABIC_LETTER_TEH))
+          .concat(translitForConsonant("ġħ", ARABIC_LETTER_GHAIN));
+        return table;
 
-
-			,["hħ" + SEP + "hħ", ARABIC_LETTER_HAH + ARABIC_SHADDA]
-			,["hħ", ARABIC_LETTER_HAH]
-
-			,[double("h"), ARABIC_LETTER_HEH + ARABIC_SHADDA] 
-			,["h", ARABIC_LETTER_HEH] 
-
-			,[double("għ"), ARABIC_LETTER_AIN + ARABIC_SHADDA]
-			,["għ", ARABIC_LETTER_AIN]
-			,["a" + SEP + "a" + SEP + "i", ARABIC_FATHA + ARABIC_LETTER_ALEF + ARABIC_LETTER_YEH + ARABIC_SUKUN]
+			}
+      
+     const transliterationTable2 = generateConsonantTransliterationTable();
+     const transliterationTable3 = [
+			 ["a" + SEP + "a" + SEP + "i", ARABIC_FATHA + ARABIC_LETTER_ALEF + ARABIC_LETTER_YEH + ARABIC_SUKUN]
 			,["a" + SEP + "a", ARABIC_FATHA + ARABIC_LETTER_ALEF]
 			,["a" + SEP + "a", ARABIC_FATHA + ARABIC_LETTER_SUPERSCRIPT_ALEF]
 			,["a" + SEP + "a", ARABIC_LETTER_SUPERSCRIPT_ALEF]
@@ -384,26 +400,11 @@
  			,["u" + SEP + "u" + SEP + "-", ARABIC_DAMMA + ARABIC_LETTER_WAW + ARABIC_LETTER_ALEF + ARABIC_SMALL_HIGH_ROUNDED_ZERO]
 
 
-			,[double("b"), '\u0628' + ARABIC_SHADDA] // ARABIC LETTER BEH then SHADDA
-			,[middleDotDouble("b"), doubleArabic('\u0628')] // ARABIC LETTER BEH twice
-			,["b", '\u0628'] // ARABIC LETTER BEH
-
 			,["-" + SEP + "t" + SEP + "t", '\u0629' + ARABIC_SHADDA] // ARABIC LETTER TEH MARBUTA then SHADDA (this never happens in Standard Arabic but we support it for consistency sake, and because there is no logical reason it should not be possible.)
 			,["-" + SEP + "t", '\u0629'] // ARABIC LETTER TEH MARBUTA
-			,[double("tħ"), '\u0637' + ARABIC_SHADDA] // ARABIC LETTER TAH then ARABIC SHADDA
-			,[middleDotDouble("tħ"), doubleArabic('\u0637')] // ARABIC LETTER TAH twice
-			,["tħ", '\u0637'] // ARABIC LETTER TAH
-			,["ṫ" + SEP + "ṫ", '\u062b' + ARABIC_SHADDA] // ARABIC LETTER THEH then SHADDA
-			,["ṫ", '\u062b'] // ARABIC LETTER THEH
-			,["t" + SEP + "t", ARABIC_LETTER_TEH + ARABIC_SHADDA] // ARABIC LETTER TEH then ARABIC SHADDA
-			,["t", ARABIC_LETTER_TEH] // ARABIC LETTER TEH
 			,["ġ" + SEP + "ġħ", ARABIC_LETTER_JEEM + ARABIC_LETTER_GHAIN]
-			,[double("ġħ"), ARABIC_LETTER_GHAIN + ARABIC_SHADDA] // ARABIC LETTER GHAIN then ARABIC SHADDA
-			,["ġħ", ARABIC_LETTER_GHAIN] 
 			,[double("ġ"), ARABIC_LETTER_JEEM + ARABIC_SHADDA] // ARABIC LETTER JEEM then ARABIC SHADDA
 			,["ġ", ARABIC_LETTER_JEEM]
-			,[double("hħ"), ARABIC_LETTER_HAH + ARABIC_SHADDA]
-			,["hħ", ARABIC_LETTER_HAH]
 			,[double("jħ"), '\u062e' + ARABIC_SHADDA] // ARABIC LETTER KHAH then ARABIC SHADDA
 			,["jħ", '\u062e'] // ARABIC LETTER KHAH
 			,[double("ḋħ"), '\u0638' + ARABIC_SHADDA] // ARABIC LETTER ZAH then ARABIC SHADDA
@@ -527,7 +528,7 @@
 		];
 
 
-
+		const transliterationTable = transliterationTable1.concat(transliterationTable2.concat(transliterationTable3));
 
 		const LATIN_COLUMN = 0;
 		const ARABIC_COLUMN = 1;
@@ -593,6 +594,7 @@
 
 		
 		function chunkLatin(text) {
+			console.log("text is", text);
 			let result = null;
 			if (text[0] === "q" && text[1] === "'" && text[2] === "0" && text[3] === "0") {
 				result = [text.substring(0,4), text.substring(4)];
@@ -639,6 +641,7 @@
 				resultText += SEP + currChunk;
 	
 			}
+
 			return resultText + SEP;
 		}
 
@@ -653,6 +656,8 @@
 			{
 				const arabicChunk = transliterationTable[i][ARABIC_COLUMN];
 				const latinChunk = transliterationTable[i][LATIN_COLUMN];
+        	
+
 
 				if (latinText.startsWith(latinChunk))
 				{
@@ -665,6 +670,7 @@
 					}
 				}
 			}
+
 			if (matchFound)
 			{
 				return maxLengthMatchTuple;
@@ -685,7 +691,6 @@
 			// Replace word initial alef with ALEF WASLA.
 			const wordInitialAlef =  /( |\t|\n|\r)\u0627/g;
 			text = text.replaceAll(wordInitialAlef, '$1' + ARABIC_LETTER_ALEF_WASLA);
-			
 			return text;
 		}
 
@@ -740,13 +745,14 @@
 				arabicText += chunk[0];
 				latinText = chunk[1];
 			}
-			
+
 			// Remove the extra space we needed.
 			arabicText = arabicText.substring(1);
 
 			// Remove all the chunk separators
 			arabicText = arabicText.replaceAll("-#٢#-", "");
 			arabicText = arabicText.replaceAll("#٢#-", "");
+
 			return  arabicText
 		}
 
