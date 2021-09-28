@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Arabic Romanization (H-slash) system</title>
@@ -135,26 +135,26 @@
 
 		<h2>Try it</h2>
 		<div>
-			<br/>
+			<br>
 			<button onclick="document.getElementById('latinScriptText').value += 'ħ'; tryArabize();">ħ</button> 
 			<button onclick="document.getElementById('latinScriptText').value += 'ġ'; tryArabize();">ġ</button> 
 			<button onclick="document.getElementById('latinScriptText').value += 'ż'; tryArabize();">ż</button> 
-			<br/>
+			<br>
 			<label for="latinScriptText">Latin Text:</label>
 			<textarea id="latinScriptText" name="latinScriptText" cols="50" aria-live="assertive" spellcheck="false" placeholder="Enter Latin text here!"></textarea>
-			<input id="quickApostropheLock" type="checkbox" checked /><label for="quickApostropheLock">Quick Apostrophe Mode</label>
+			<input id="quickApostropheLock" type="checkbox" checked="checked"><label for="quickApostropheLock">Quick Apostrophe Mode</label>
 		</div>
 		<div>
 			<button id="transliterateToArabic">Arabize ⬇️</button>
-			<input id="transliterationToArabicLock" type="checkbox" checked /><label for="transliterationToArabicLock">Transliterate to Arabic as I type</label>
+			<input id="transliterationToArabicLock" type="checkbox" checked="checked"><label for="transliterationToArabicLock">Transliterate to Arabic as I type</label>
 			<br>
 			<button id="transliterateToLatin">⬆️ Romanize</button>
-			<input id="transliterationToLatinLock" type="checkbox" /><label for="transliterationToLatinLock">Transliterate to Latin as I type</label>
+			<input id="transliterationToLatinLock" type="checkbox"><label for="transliterationToLatinLock">Transliterate to Latin as I type</label>
 		
 		</div>
 		<div>
 			<label for="arabicScriptText">Arabic Text:</label>
-			<textarea id="arabicScriptText" name="arabicScriptText" lang="ar" dir="rtl" cols="20" aria-live="assertive" placeholder="اكتُبْ هُنَا"></textarea>
+			<textarea id="arabicScriptText" name="arabicScriptText" dir="rtl" cols="20" aria-live="assertive" placeholder="اكتُبْ هُنَا" lang="ar"></textarea>
 		</div>
 		<br>
 		<footer><a href="https://github.com/elsanussi-s-mneina/">Elsanussi Mneina made this page. صنع هذه الصفحة السنوسي امنينة </a>
@@ -566,7 +566,6 @@
 		
 		function chunkLatin(text) {
 			let result = null;
-			console.log("chunking", text);
 			if (text[0] === "q" && text[1] === "'" && text[2] === "0" && text[3] === "0") {
 				result = [text.substring(0,4), text.substring(4)];
 			} else if (text[0] === "q" && text[1] === "'" && 
@@ -584,7 +583,6 @@
 				if (text[0] === "a" && text[2] === "-" && text[1] === text[3])
 				{
 					// This branch handles "ax-x", "as-s", et cetera.
-					console.log("got here!!!(", text.substring(0,4), ")")
 					result = [text.substring(0,4), text.substring(4)];
 				}
 				else if (text[0] === "a" && text[2] === "ħ" && text[3] === "-" 
@@ -619,16 +617,13 @@
 				[currChunk, rest] = chunkLatin(remainingText);
 				remainingText = rest;
 				resultText += SEP + currChunk;
-				
-				console.log("The while loop")
-				console.log(remainingText);
+	
 			}
 			return resultText + SEP;
 		}
 
 		function arabizeNextChunk(latinText)
 		{
-			console.log("LLatin text is:", latinText)
 			latinText = latinText.toLowerCase();
 			
 			let maxLengthMatchTuple = ["", ""];
@@ -641,12 +636,10 @@
 
 				if (latinText.startsWith(latinChunk))
 				{
-					console.log(latinText, latinChunk)
 					// Transliterate the next Latin chunk.
 					// Also return the rest of the Latin text.
 					if (maxLengthMatchTuple[0].length < arabicChunk.length)
 					{
-						console.log("candidate translit for chunk: arabicChunk:", arabicChunk, "to ", latinChunk)
 						matchFound = true;
 						maxLengthMatchTuple = [arabicChunk, latinText.substring(latinChunk.length)];
 					}
@@ -654,7 +647,6 @@
 			}
 			if (matchFound)
 			{
-				console.log("final choice for chunk:", maxLengthMatchTuple)
 				return maxLengthMatchTuple;
 			} else
 			{
@@ -673,7 +665,6 @@
 			// Replace word initial alef with ALEF WASLA.
 			const wordInitialAlef =  /( |\t|\n|\r)\u0627/g;
 			text = text.replaceAll(wordInitialAlef, '$1' + ARABIC_LETTER_ALEF_WASLA);
-			console.log(text);
 			
 			return text;
 		}
@@ -692,7 +683,6 @@
 			text = text.replaceAll("#2#-", "");
 
 
-			console.log(text);
 			return text;
 		}
 
@@ -786,5 +776,5 @@
 		}
 		</script>
 
-	</body>
-</html>
+	
+</body></html>
