@@ -162,7 +162,7 @@
 		</div>
 		<br>
 		<footer><a href="https://github.com/elsanussi-s-mneina/">Elsanussi Mneina made this page. صنع هذه الصفحة السنوسي امنينة </a>
-			<p><a href="https://github.com/elsanussi-s-mneina/h-slash-arabic-romanization-html-js">v1.0.0, (2021-09-14)</a></p>
+			<p><a href="https://github.com/elsanussi-s-mneina/h-slash-arabic-romanization-html-js">v1.0.0dev, (2021-09-)</a></p>
 		</footer>
 		
 		<script>
@@ -327,6 +327,7 @@
 			];
     }
 
+	  // transliteration table 1 has transliterations forr definite article and hamza.
 		const transliterationTable1 = 
 			[
 			[SEP + " " + SEP + "ax-x" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_SHEEN + ARABIC_SHADDA]
@@ -377,12 +378,38 @@
           .concat(translitForConsonant("tħ", '\u0637'))
           .concat(translitForConsonant("ṫ", '\u062b'))
           .concat(translitForConsonant("t", ARABIC_LETTER_TEH))
-          .concat(translitForConsonant("ġħ", ARABIC_LETTER_GHAIN));
+          .concat(translitForConsonant("ġħ", ARABIC_LETTER_GHAIN))
+          .concat([["ġ" + SEP + "ġħ", ARABIC_LETTER_JEEM + ARABIC_LETTER_GHAIN]]) // This handles parsing g'g'h' as GEEM then GHAIN (but we should find a more elegant solution).
+
+          .concat(translitForConsonant("ġ", ARABIC_LETTER_JEEM))
+          .concat(translitForConsonant("jħ", '\u062e'))
+          .concat(translitForConsonant("ḋħ", '\u0638')) // ARABIC LETTER ZAH
+          .concat(translitForConsonant("ḋ", '\u0630')) // ARABIC LETTER DHAL
+          .concat(translitForConsonant("dħ", '\u0636')) // ARABIC LETTER DAD
+          .concat(translitForConsonant("d", ARABIC_LETTER_DAL))
+          .concat(translitForConsonant("r", '\u0631')) // ARABIC LETTER REH
+          .concat(translitForConsonant("ż", '\u0632')) // ARABIC LETTER ZAIN
+          .concat(translitForConsonant("x", ARABIC_LETTER_SHEEN))
+          .concat(translitForConsonant("sħ", '\u0635')) // ARABIC LETTER SAD
+          .concat(translitForConsonant("s", '\u0633')) // ARABIC LETTER SEEN
+          
+          .concat(translitForConsonant("f", '\u0641')) // ARABIC LETTER FEH
+          .concat(translitForConsonant("q", '\u0642')) // ARABIC LETTER QAF
+          .concat(translitForConsonant("k", '\u0643')) // ARABIC LETTER KAF
+          .concat(translitForConsonant("l", ARABIC_LETTER_LAM))
+          .concat(translitForConsonant("m", '\u0645')) // ARABIC LETTER MEEM
+          .concat(translitForConsonant("n", '\u0646')) // ARABIC LETTER NOON
+          .concat(translitForConsonant("h", ARABIC_LETTER_HEH))
+          .concat(translitForConsonant("w", ARABIC_LETTER_WAW))
+          .concat(translitForConsonant("j", ARABIC_LETTER_YEH));
         return table;
 
 			}
-      
+     
+     // Transliteration table 2 is for consonants (not including alef) (only the usual cases)
      const transliterationTable2 = generateConsonantTransliterationTable();
+     
+     // Transliteration table 3 is for vowels.
      const transliterationTable3 = [
 			 ["a" + SEP + "a" + SEP + "i", ARABIC_FATHA + ARABIC_LETTER_ALEF + ARABIC_LETTER_YEH + ARABIC_SUKUN]
 			,["a" + SEP + "a", ARABIC_FATHA + ARABIC_LETTER_ALEF]
@@ -402,47 +429,6 @@
 
 			,["-" + SEP + "t" + SEP + "t", '\u0629' + ARABIC_SHADDA] // ARABIC LETTER TEH MARBUTA then SHADDA (this never happens in Standard Arabic but we support it for consistency sake, and because there is no logical reason it should not be possible.)
 			,["-" + SEP + "t", '\u0629'] // ARABIC LETTER TEH MARBUTA
-			,["ġ" + SEP + "ġħ", ARABIC_LETTER_JEEM + ARABIC_LETTER_GHAIN]
-			,[double("ġ"), ARABIC_LETTER_JEEM + ARABIC_SHADDA] // ARABIC LETTER JEEM then ARABIC SHADDA
-			,["ġ", ARABIC_LETTER_JEEM]
-			,[double("jħ"), '\u062e' + ARABIC_SHADDA] // ARABIC LETTER KHAH then ARABIC SHADDA
-			,["jħ", '\u062e'] // ARABIC LETTER KHAH
-			,[double("ḋħ"), '\u0638' + ARABIC_SHADDA] // ARABIC LETTER ZAH then ARABIC SHADDA
-			,["ḋħ", '\u0638'] // ARABIC LETTER ZAH
-			,[double("ḋ"), '\u0630' + ARABIC_SHADDA] // ARABIC LETTER DHAL then ARABIC SHADDA
-			,["ḋ", '\u0630'] // ARABIC LETTER DHAL
-			,[double("dħ"), '\u0636' + ARABIC_SHADDA] // ARABIC LETTER DAD then ARABIC SHADDA
-			,["dħ", '\u0636'] // ARABIC LETTER DAD
-			,[double("d"), ARABIC_LETTER_DAL + ARABIC_SHADDA] // ARABIC LETTER DAL then ARABIC SHADDA
-			,["d", ARABIC_LETTER_DAL] // ARABIC LETTER DAL
-			,[double("r"), '\u0631' + ARABIC_SHADDA] // ARABIC LETTER REH then ARABIC SHADDA
-			,["r", '\u0631'] // ARABIC LETTER REH
-			,[double("ż"), '\u0632' + ARABIC_SHADDA] // ARABIC LETTER ZAIN then ARABIC SHADDA
-			,["ż", '\u0632'] // ARABIC LETTER ZAIN
-			,[double("x"), ARABIC_LETTER_SHEEN + ARABIC_SHADDA] // ARABIC LETTER SHEEN then ARABIC SHADDA
-			,["x", ARABIC_LETTER_SHEEN] // ARABIC LETTER SHEEN
-			,[double("sħ"), '\u0635' + ARABIC_SHADDA] // ARABIC LETTER SAD then ARABIC SHADDA
-			,["sħ", '\u0635'] // ARABIC LETTER SAD
-			,[double("s"), '\u0633' + ARABIC_SHADDA] // ARABIC LETTER SEEN then ARABIC SHADDA
-			,["s", '\u0633'] // ARABIC LETTER SEEN
-			,[double("f"), '\u0641' + ARABIC_SHADDA] // ARABIC LETTER FEH then ARABIC SHADDA
-			,["f", '\u0641'] // ARABIC LETTER FEH
-			,[double("q"), '\u0642' + ARABIC_SHADDA] // ARABIC LETTER QAF then ARABIC SHADDA
-			,["q", '\u0642'] // ARABIC LETTER QAF
-			,[double("k"), '\u0643' + ARABIC_SHADDA] // ARABIC LETTER KAF then ARABIC SHADDA
-			,["k", '\u0643'] // ARABIC LETTER KAF
-			,[double("l"), ARABIC_LETTER_LAM + ARABIC_SHADDA] // ARABIC LETTER LAM then ARABIC SHADDA
-			,["l", ARABIC_LETTER_LAM] // ARABIC LETTER LAM
-			,[double("m"), '\u0645' + ARABIC_SHADDA] // ARABIC LETTER MEEM then ARABIC SHADDA
-			,["m", '\u0645'] // ARABIC LETTER MEEM
-			,[double("n"), '\u0646' + ARABIC_SHADDA] // ARABIC LETTER NOON then ARABIC SHADDA
-			,["n", '\u0646'] // ARABIC LETTER NOON
-			,[double("h"), ARABIC_LETTER_HEH + ARABIC_SHADDA]
-			,["h", ARABIC_LETTER_HEH]
-			,[double("w"), ARABIC_LETTER_WAW + ARABIC_SHADDA]
-			,["w", ARABIC_LETTER_WAW]
-			,[double("j"), ARABIC_LETTER_YEH + ARABIC_SHADDA]
-			,["j", ARABIC_LETTER_YEH]
 			,["a" + SEP + "-" + SEP + "n", ARABIC_FATHATAN]
 			,["u" + SEP + "-" + SEP + "n", '\u064c'] // ARABIC DAMMATAN
 			,["i" + SEP + "-" + SEP + "n", '\u064d'] // ARABIC KASRATAN
@@ -486,8 +472,11 @@
 
 			,["a", ARABIC_FATHA]
 			,["u", ARABIC_DAMMA]
-			,["i", ARABIC_KASRA]
-			,[',', '\u060c'] // ARABIC COMMA
+			,["i", ARABIC_KASRA]];
+      
+      // Transliteration table 4 is For punctuation and numerals.
+      const transliterationTable4 = [ 
+			 [',', '\u060c'] // ARABIC COMMA
 			,[';', '\u061b'] // ARABIC SEMICOLON
 			,['?', '\u061f'] // ARABIC QUESTION MARK
 			,['.', '.'] // Preserve the FULL STOP character. I.e. do not convert it to the ARABIC DECIMAL SEPARATOR indiscriminantly.
@@ -528,7 +517,8 @@
 		];
 
 
-		const transliterationTable = transliterationTable1.concat(transliterationTable2.concat(transliterationTable3));
+		// Combine all the transliteration tables together into one.
+		const transliterationTable = transliterationTable1.concat(transliterationTable2.concat(transliterationTable3.concat(transliterationTable4)));
 
 		const LATIN_COLUMN = 0;
 		const ARABIC_COLUMN = 1;
