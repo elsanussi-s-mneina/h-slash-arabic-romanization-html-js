@@ -79,7 +79,7 @@
 			<li><span class="latin">q'</span> → <span class="arabic">ء</span></li>
 			<li><span class="latin">b</span> → <span class="arabic">ب</span></li>
 			<li><span class="latin">t</span> → <span class="arabic">ت</span></li>
-			<li><span class="latin">t'</span> → <span class="arabic">ث</span></li>
+			<li><span class="latin">t' / ṫ</span> → <span class="arabic">ث</span></li>
 			<li><span class="latin">ġ</span> → <span class="arabic">ج</span></li>
 			<li><span class="latin">hħ</span> → <span class="arabic">ح</span></li>
 			<li><span class="latin">jħ</span> → <span class="arabic">خ</span></li>
@@ -308,10 +308,9 @@
 
 		const transliterationTable = 
 			[
-			[SEP + " " + SEP + "al-" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM]
-			,[SEP + " " + SEP + "ax-x" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_SHEEN + ARABIC_SHADDA]
+			[SEP + " " + SEP + "ax-x" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_SHEEN + ARABIC_SHADDA]
 			,[SEP + " " + SEP + "at-t" , " " +  ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_TEH + ARABIC_SHADDA]
-			,[SEP + " " + SEP + "at'-t'" , " " +  ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_THEH + ARABIC_SHADDA]
+			,[SEP + " " + SEP + "aṫ-ṫ" , " " +  ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_THEH + ARABIC_SHADDA]
 			,[SEP + " " + SEP + "ad-d" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_DAL + ARABIC_SHADDA]
 			,[SEP + " " + SEP + "aḋ-ḋ" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_THAL + ARABIC_SHADDA]
 			,[SEP + " " + SEP + "ar-r" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_REH + ARABIC_SHADDA]
@@ -323,6 +322,7 @@
 			,[SEP + " " + SEP + "aḋħ-ḋħ" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_ZAH + ARABIC_SHADDA]
 			,[SEP + " " + SEP + "an-n" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_NOON + ARABIC_SHADDA]
 			,[SEP + " " + SEP + "al-l" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM + ARABIC_LETTER_LAM + ARABIC_SHADDA]
+      ,[SEP + " " + SEP + "al-" , " " + ARABIC_LETTER_ALEF_WASLA + ARABIC_LETTER_LAM]
 			,["q'00" , ARABIC_LETTER_ALEF_WASLA]
 			,["q'0" , ARABIC_LETTER_ALEF]
 			,["q'1", ARABIC_LETTER_ALEF_WITH_HAMZA_ABOVE]
@@ -377,8 +377,8 @@
 			,["-" + SEP + "t", '\u0629'] // ARABIC LETTER TEH MARBUTA
 			,[double("tħ"), '\u0637' + ARABIC_SHADDA] // ARABIC LETTER TAH then ARABIC SHADDA
 			,["tħ", '\u0637'] // ARABIC LETTER TAH
-			,["t'" + SEP + "t'", '\u062b' + ARABIC_SHADDA] // ARABIC LETTER THEH then SHADDA
-			,["t'", '\u062b'] // ARABIC LETTER THEH
+			,["ṫ" + SEP + "ṫ", '\u062b' + ARABIC_SHADDA] // ARABIC LETTER THEH then SHADDA
+			,["ṫ", '\u062b'] // ARABIC LETTER THEH
 			,["t" + SEP + "t", ARABIC_LETTER_TEH + ARABIC_SHADDA] // ARABIC LETTER TEH then ARABIC SHADDA
 			,["t", ARABIC_LETTER_TEH] // ARABIC LETTER TEH
 			,["ġ" + SEP + "ġħ", ARABIC_LETTER_JEEM + ARABIC_LETTER_GHAIN]
@@ -732,6 +732,7 @@
     function normalizeLatinText(latinText)
     {
     	latinText = latinText.replaceAll("d'", "ḋ");
+      latinText = latinText.replaceAll("t'", "ṫ");
       console.log(latinText);
       // Using this single character (d with dot above)
       // instead of d apostrophe greatly simplifies
